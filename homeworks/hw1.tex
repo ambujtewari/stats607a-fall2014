@@ -6,12 +6,37 @@
 
 \maketitle
 
-\section{K-means}
+\subsection*{Ways to earn extra credit}
+
+\begin{itemize}
+\item +1 for all real bugs in the already supplied code that you find and report to the instructor.
+\item +1 for each problem where your code is in the top 10 percentile (top 5 students) in terms of running time.
+\item +1 for each python script where Python style guide checker {\tt pep8} doesn't report any issues. You can test for any style guide issues yourself by typing
+{\tt pep8 <python-script>} on the shell prompt.
+
+\end{itemize}
+
+\subsection*{How to turn in?}
+
+Create a folder called {\tt stats607-fall2014} (case-sensitive) in your home directory on any of the Bayes machines. Make it publicly readable by typing:\\
+{\tt chmod a+rx stats607-fall2014} \\
+in your home directory. Then create a sub-directory called {\tt assignment\_one} within the 607 directory. Make that publicly readable too. We will try to find the
+following 4 files in your home directory after the submission deadline:\\
+{\tt assignment\_one\_kmeans.py} \\
+{\tt assignment\_one\_optimization.py} \\
+{\tt assignment\_one\_nbayes.py} \\
+{\tt assignment\_one\_answers.pdf} \\
+
+The first 3 files should be python script that run without any error message. The last file should be a PDF file with answers to all questions below. Make sure the 4 files
+themselves are readable. You can check the permission of any of these 4 files by typing {\tt ls -l <filename>} and you should see {\tt -rw-r--r--} in the first field of the output.
+
+\section{K-means (10 points)}
 
 In this problem, we will implement the \href{http://en.wikipedia.org/wiki/K-means_clustering\#Standard_algorithm}{K-means algorithm}. Download a test dataset ``seeds" from:\\
 \url{http://archive.ics.uci.edu/ml/datasets/seeds} \\
-In the file {\tt seeds\_dataset.txt}, there are 210 instances of dimension 7 along with a categorical label (1, 2, or 3). Download an (incomplete!) python script from:\\
-\url{https://github.com/ambujtewari/stats607a-fall2014/blob/master/homeworks/assignment_one_kmeans.py} \\
+In the file {\tt seeds\_dataset.txt}, there are 210 instances of dimension 7 along with a categorical label (1, 2, or 3). Download an (incomplete!) python script by following the following
+link:\\
+\href{https://github.com/ambujtewari/stats607a-fall2014/blob/master/homeworks/assignment_one_kmeans.py}{\tt assignment\_one\_kmeans.py} \\
 Click on the ``Raw" button on the top right and save the file as {\tt assignment\_one\_kmeans.py}.
 
 Open the python script in your favorite text editors. You will see a bunch of places where a comment says {\tt TASK x.y(.z)}. These are the places where you have to supply your
@@ -20,11 +45,49 @@ own code.\\
 
 We will now briefly describe your tasks. If something is unclear, please don't hesitate to email the instructor and/or GSI.
 
-\subsection{Reading in the data}
+\subsection{Reading in the data (1 point)}
 
-\subsection{Finding number of unique labels}
+We will read in the instances into two lists: {\tt instances} and {\tt labels}. The former will a list of 7-dimensional instance. An instance will itself be represented using a list of length 7.
+The latter will be a list of the labels (note that the label occurs at the end of each line).
 
-\subsection{
+Task 1.1 has 2 subtasks: 1.1.1 and 1.1.2.
+
+\subsection{Finding number of unique labels (1 point)}
+
+Finish the definition of the function {\tt num\_unique\_labels} so that it finds out how many unique labels are there in its argument {\tt labels}. Make sure it returns 3 for the labels obtained
+from the seeds dataset.
+
+\subsection{Implementing K-means++ (2 points)}
+
+\href{http://en.wikipedia.org/wiki/K-means\%2B\%2B}{K-means++} is an enhanced version of the classic K-means algorithm. It only differs from the classic algorithm in the way it initializes the $K$ centers.
+Implement the function {\tt kmeans\_plus\_plus} so that this enhanced initialization is available by supplying the optional argument {\tt init} to {\tt cluster\_using\_kmeans}. Its default value is ``random" (in this case,
+the initial centers are simply chosen at uniformly at random without replacement).
+
+\subsection{Cluster assignment step of K-means (2 points)}
+
+Implement the function {\tt assign\_cluster\_ids}.
+
+Task 1.4 has 2 subtasks: 1.4.1 and 1.4.2.
+
+\subsection{Center re-computation step of K-means (2 points)}
+
+Implement the function {\tt recompute\_centers}.
+
+Task 1.5 has 2 subtasks: 1.5.1 and 1.5.2.
+
+\subsection{Running the script and discussing the output}
+
+Once you have supplied all missing pieces of the code, run the script using:\\
+{\tt python assignment\_one\_kmeans.py}
+
+Answer the following questions:
+\begin{description}
+\item[Q. 1.1]
+How does the kmeans clustering compare to the provided labels? On how many instances do they disagree?
+\item[Q. 1.2]
+How does the kmeans++ clustering compare to the provided labels? How does it compare to the kmeans clustering? Is there any difference at all?
+\end{description}
+
 
 \section{Simple Optimization}
 
