@@ -162,4 +162,6 @@ def main():
     print "Done clustering.\nPrinting instance_id, label, cluster_id."
     for i in len(instances):
         print '%3d %2d %2d' % (i, labels[i], cluster_ids[i])
+
+
 main()
