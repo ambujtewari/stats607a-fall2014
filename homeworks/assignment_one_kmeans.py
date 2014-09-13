@@ -3,6 +3,11 @@
 import random
 
 
+# TASK 1.1
+# Complete the function definition below so that the functions
+# returns a tuple containing two lists: the first list should be
+# a list of instance (themselves represented as lists) and the
+# second list should be a list of labels.
 def read_data(filename):
     """ Reads instances and labels from a file. """
 
@@ -15,19 +20,19 @@ def read_data(filename):
         # read both feature values and label
         instance_and_label = [float(x) for x in line.split()]
 
-        # TASK 1.1
+        # TASK 1.1.1
         # Remove label (last item) from instance_and_label and append it
         # to labels
         pass
 
-        # TASK 1.2
+        # TASK 1.1.2
         # Append the instance to instances
         pass
 
     return instances, labels
 
 
-# TASK 1.3
+# TASK 1.2
 # Complete the function definition below so that the function returns the
 # number of unique elements in the list labels
 def num_unique_labels(labels):
@@ -36,7 +41,7 @@ def num_unique_labels(labels):
     pass
 
 
-# TASK 1.4
+# TASK 1.3
 # Complete the function definition below so that K centers get chosen from
 # the given instances using the initialization used by the kmeans++ algorithm
 # as described, for example, in:
@@ -53,7 +58,7 @@ def euclidean_squared(p1, p2):
     return sum([abs(x-y)**2 for (x, y) in zip(p1, p2)])
 
 
-# TASK 1.5
+# TASK 1.4
 # Complete the function definition below to return a list cluster_ids
 # such that cluster_idx[i] is the index of the center closest to instances[i].
 def assign_cluster_ids(instances, centers):
@@ -62,7 +67,7 @@ def assign_cluster_ids(instances, centers):
     cluster_ids = len(instances)*[0]  # create list of zeros
     for i in instances:
 
-        # TASK 1.5.1
+        # TASK 1.4.1
         # Compute distances of instances[i] to each of the centers using a list
         # comprehension. Make use of the euclidean_squared function defined
         # above.
@@ -71,13 +76,15 @@ def assign_cluster_ids(instances, centers):
         # Find the minimum distance.
         min_distance = min(distances)
 
-        # Set the cluster id.
-        cluster_ids[i] = distances.index(min_distance)
+        # TASK 1.4.2
+        # Set the cluster id to be the index at which min_distance
+        # is found in the list distances.
+        cluster_ids[i] = 0
 
     return cluster_ids
 
 
-# TASK 1.6
+# TASK 1.5
 # Complete the function definition below to recompute the centers given cluster
 # ids of instances.
 def recompute_centers(instances, cluster_ids, centers):
@@ -88,13 +95,13 @@ def recompute_centers(instances, cluster_ids, centers):
 
     for i in range(K):
 
-        # TASK 1.6.1
+        # TASK 1.5.1
         # Find indices of of those instances whose cluster id is i.
         # Use a single list comprehension.
         one_cluster = []
         cluster_size = len(one_cluster)
 
-        # TASK 1.6.2
+        # TASK 1.5.2
         # Suppose one_cluster is [i1, i2, i3, ... ]
         # Compute the mean of the points instances[i1], instances[i2], ...
         # using a call to reduce().
@@ -158,9 +165,16 @@ def main():
     cluster_ids, centers = cluster_using_kmeans(instances, K)
 
     # Print the provided labels and the found clustering
-    print "Done clustering.\nPrinting instance_id, label, cluster_id."
+    print "Done with kmeans.\nPrinting instance_id, label, cluster_id."
     for i in len(instances):
         print '%3d %2d %2d' % (i, labels[i], cluster_ids[i])
 
+    # Now run k-means using kmeans++ initialization
+    cluster_ids, centers = cluster_using_kmeans(instances, K, 'kmeans++')
+
+    # Print the provided labels and the found clustering
+    print "Done with kmeans++.\nPrinting instance_id, label, cluster_id."
+    for i in len(instances):
+        print '%3d %2d %2d' % (i, labels[i], cluster_ids[i])
 
 main()
