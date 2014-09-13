@@ -1,1 +1,1 @@
-# Steepest descent and Newton
+# Naive Bayes

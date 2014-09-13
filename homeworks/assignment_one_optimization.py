@@ -1,1 +1,1 @@
-# Generalized K-means
+# Simple optimization: steepest descent and Newton's method
