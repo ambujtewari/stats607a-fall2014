@@ -65,13 +65,13 @@ def assign_cluster_ids(instances, centers):
         # TASK 1.5.1
 
         # Compute distances of instances[i] to each of the centers using a list
-        # comprehension
+        # comprehension.
         distances = []
 
-        # find the minimum distance
+        # Find the minimum distance.
         min_distance = min(distances)
 
-        # set the cluster id
+        # Set the cluster id.
         cluster_ids = distances.index(min_distance)
 
     return cluster_ids
@@ -79,7 +79,7 @@ def assign_cluster_ids(instances, centers):
 
 # TASK 1.6
 # Complete the function definition below to recompute the centers given cluster
-# ids of instances
+# ids of instances.
 def recompute_centers(instances, cluster_ids, centers):
     """ Compute centers (means) given cluster ids. """
 
@@ -89,8 +89,8 @@ def recompute_centers(instances, cluster_ids, centers):
     for i in range(K):
 
         # TASK 1.6.1
-        # find indices of of those instances whose cluster id is i
-        # use a single list comprehension
+        # Find indices of of those instances whose cluster id is i.
+        # Use a single list comprehension.
         one_cluster = []
         cluster_size = len(one_cluster)
 
