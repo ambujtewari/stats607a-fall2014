@@ -63,16 +63,16 @@ def assign_cluster_ids(instances, centers):
     for i in instances:
 
         # TASK 1.5.1
-
         # Compute distances of instances[i] to each of the centers using a list
-        # comprehension.
+        # comprehension. Make use of the euclidean_squared function defined
+        # above.
         distances = []
 
         # Find the minimum distance.
         min_distance = min(distances)
 
         # Set the cluster id.
-        cluster_ids = distances.index(min_distance)
+        cluster_ids[i] = distances.index(min_distance)
 
     return cluster_ids
 
@@ -99,7 +99,7 @@ def recompute_centers(instances, cluster_ids, centers):
         # Compute the mean of the points instances[i1], instances[i2], ...
         # using a call to reduce().
         # Supply the right 1st arg: a lambda function (this should take two
-        # points [represented as lists] as argument and return their sum) and
+        # points [represented as lists] as arguments and return their sum) and
         # the right 2nd arg: a list (computed using a list comprehension)
         centers[i] = reduce(lambda x, y: [], [])/cluster_size
 
@@ -118,7 +118,6 @@ def cluster_using_kmeans(instances, K, init='random'):
         # Choose initial centers at random from the given instances
         centers = random.sample(instances, K)
     else:
-        # TASK 1.4
         # Assign clusters using the kmeans++ enhancement.
         centers = kmeans_plus_plus(instances, K)
 
