@@ -1,0 +1,1 @@
+# Steepest descent and Newton
