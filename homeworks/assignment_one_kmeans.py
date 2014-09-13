@@ -16,12 +16,12 @@ def read_data(filename):
         instance_and_label = [float(x) for x in line.split()]
 
         # TASK 1.1
-        # Remove label (last item) from instance_and_label and put it
-        # in labels
+        # Remove label (last item) from instance_and_label and append it
+        # to labels
         pass
 
         # TASK 1.2
-        # Put the instance in instances
+        # Append the instance to instances
         pass
 
     return instances, labels
@@ -152,12 +152,14 @@ def main():
 
     # Find number of clusters by finding out how many unique elements are there
     # in labels.
-
     K = num_unique_labels(labels)
-    print 'Found %d unique labels' % K
+    print 'Found %d unique labels.' % K
 
     # Run k-means clustering to cluster the instances.
     cluster_ids, centers = cluster_using_kmeans(instances, K)
 
-
+    # Print the provided labels and the found clustering
+    print "Done clustering.\nPrinting instance_id, label, cluster_id."
+    for i in len(instances):
+        print '%3d %2d %2d' % (i, labels[i], cluster_ids[i])
 main()
