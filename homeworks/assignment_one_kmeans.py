@@ -46,6 +46,7 @@ def num_unique_labels(labels):
 # the given instances using the initialization used by the kmeans++ algorithm
 # as described, for example, in:
 # http://en.wikipedia.org/wiki/K-means%2B%2B#Initialization_algorithm
+# (Steps 1 through 4)
 def kmeans_plus_plus(instances, K):
     """ Choose K centers from instances using the kmeans++ initialization. """
 

@@ -6,6 +6,10 @@
 
 \maketitle
 
+\begin{center}
+This version: 1.0 (Problem 1 finalized)
+\end{center}
+
 \subsection*{Ways to earn extra credit}
 
 \begin{itemize}
@@ -41,7 +45,7 @@ Click on the ``Raw" button on the top right and save the file as {\tt assignment
 
 Open the python script in your favorite text editors. You will see a bunch of places where a comment says {\tt TASK x.y(.z)}. These are the places where you have to supply your
 own code.\\
-{\bf Important:} Please {\em don't} modify the existing code and comments! We might use automated scripts to grade your code and not following this suggestion will break those scripts.
+{\bf Important:} Please only change/add code where the tasks require you to do so (sometimes you'll have to replace a {\tt pass} statement with real code, sometimes you'll be changing existing statements). Please {\em don't} modify the existing code and comments anywhere else! We might use automated scripts to grade your code and not following this suggestion will break those scripts.
 
 We will now briefly describe your tasks. If something is unclear, please don't hesitate to email the instructor and/or GSI.
 
@@ -63,6 +67,9 @@ from the seeds dataset.
 Implement the function {\tt kmeans\_plus\_plus} so that this enhanced initialization is available by supplying the optional argument {\tt init} to {\tt cluster\_using\_kmeans}. Its default value is ``random" (in this case,
 the initial centers are simply chosen at uniformly at random without replacement).
 
+Note that this task hasn't been broken down into precisely defined subtasks deliberately. We want to see how well you document your code when given complete freedom. We also want to see how much
+variation we see in your solutions to this task. Remember those extra credits for running time -- this is the task where to get them by beating your fellow students' approaches!
+
 \subsection{Cluster assignment step of K-means (2 points)}
 
 Implement the function {\tt assign\_cluster\_ids}.
@@ -75,7 +82,7 @@ Implement the function {\tt recompute\_centers}.
 
 Task 1.5 has 2 subtasks: 1.5.1 and 1.5.2.
 
-\subsection{Running the script and discussing the output}
+\subsection{Running the script and discussing the output (2 points)}
 
 Once you have supplied all missing pieces of the code, run the script using:\\
 {\tt python assignment\_one\_kmeans.py}
