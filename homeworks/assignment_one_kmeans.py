@@ -1,4 +1,8 @@
 # Assignment 1, Part 1: K-means
+# Version 0.1
+#
+# Thanks to the following students for reporting bugs:
+# Gregory Hunt
 
 import random
 
