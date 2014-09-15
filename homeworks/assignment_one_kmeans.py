@@ -65,8 +65,10 @@ def euclidean_squared(p1, p2):
 def assign_cluster_ids(instances, centers):
     """ Assigns each instance the id of the center closest to it. """
 
-    cluster_ids = len(instances)*[0]  # create list of zeros
-    for i in instances:
+    n = len(instances)
+    cluster_ids = n*[0]  # create list of zeros
+
+    for i in range(n):
 
         # TASK 1.4.1
         # Compute distances of instances[i] to each of the centers using a list
@@ -109,7 +111,8 @@ def recompute_centers(instances, cluster_ids, centers):
         # Supply the right 1st arg: a lambda function (this should take two
         # points [represented as lists] as arguments and return their sum) and
         # the right 2nd arg: a list (computed using a list comprehension)
-        centers[i] = reduce(lambda x, y: [], [])/cluster_size
+        sum_cluster = reduce(lambda x, y: [], [])
+        centers[i] = [x/cluster_size for x in sum_cluster]
 
 
 def cluster_using_kmeans(instances, K, init='random'):
@@ -137,7 +140,7 @@ def cluster_using_kmeans(instances, K, init='random'):
 
         # recompute centers; note function returns None, modifies centers
         # directly
-        recompute_centers(instances, cluster_ids, centers, K)
+        recompute_centers(instances, cluster_ids, centers)
 
         # re-assign cluster ids
         new_cluster_ids = assign_cluster_ids(instances, centers)
@@ -157,6 +160,11 @@ def main():
     print 'Read %d instances and %d labels from file %s.' \
         % (len(instances), len(labels), data_file)
 
+    if len(instances) != len(labels):
+        raise Exception('Expected equal number of instances and labels.')
+    else:
+        n = len(instances)
+
     # Find number of clusters by finding out how many unique elements are there
     # in labels.
     K = num_unique_labels(labels)
@@ -167,7 +175,7 @@ def main():
 
     # Print the provided labels and the found clustering
     print "Done with kmeans.\nPrinting instance_id, label, cluster_id."
-    for i in len(instances):
+    for i in range(n):
         print '%3d %2d %2d' % (i, labels[i], cluster_ids[i])
 
     # Now run k-means using kmeans++ initialization
@@ -175,7 +183,8 @@ def main():
 
     # Print the provided labels and the found clustering
     print "Done with kmeans++.\nPrinting instance_id, label, cluster_id."
-    for i in len(instances):
+    for i in range(n):
         print '%3d %2d %2d' % (i, labels[i], cluster_ids[i])
+
 
 main()
