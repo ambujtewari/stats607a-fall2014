@@ -7,7 +7,7 @@
 \maketitle
 
 \begin{center}
-This version: 1.0 (Problem 1 finalized)
+This version: 2.0 (Problem 2 added)
 \end{center}
 
 \subsection*{Ways to earn extra credit}
@@ -28,7 +28,7 @@ in your home directory. Then create a sub-directory called {\tt assignment\_one}
 following 4 files in your home directory after the submission deadline:\\
 {\tt assignment\_one\_kmeans.py} \\
 {\tt assignment\_one\_optimization.py} \\
-{\tt assignment\_one\_nbayes.py} \\
+{\tt assignment\_one\_nearest\_neighbors.py} \\
 {\tt assignment\_one\_answers.pdf} \\
 
 The first 3 files should be python script that run without any error message. The last file should be a PDF file with answers to all questions below. Make sure the 4 files
@@ -96,9 +96,92 @@ How does the kmeans++ clustering compare to the provided labels? How does it com
 \end{description}
 
 
-\section{Simple Optimization}
+\section{Simple Optimization (12 points)}
+
+In the problem, we will implement two simple optimization algorithms: gradient descent and coordinate descent. A gradient descent iteration is simple:
+\[
+x \gets x - \alpha \nabla f(x)
+\]
+where $\alpha > 0$ is a step size parameter.
+
+\subsection{Implement gradient descent given gradient evaluator (2 points)}
+
+Download the incomplete code from:
+\href{https://github.com/ambujtewari/stats607a-fall2014/blob/master/homeworks/assignment_one_optimization.py}{\tt assignment\_one\_optimization.py} \\
+Also download:
+\href{https://github.com/ambujtewari/stats607a-fall2014/blob/master/homeworks/losses.py}{\tt losses.py} \\
+and make sure you put the two files in the same directory (the former {\tt import}s the latter).
+
+Implement the function {\tt gradient\_descent}. Note that the argument {\tt func\_grad} gives you the gradient at an arbitrary point. The gradient 
+as well as the iterates have dimension {\tt dim} and are both represented as lists of floating point numbers (of length {\tt dim})
+
+Task 2.1 has 2 subtasks: 2.1.1 and 2.1.2.
+
+\subsection{Implement coordinate descent given partial derivative evaluator (2 points)}
+
+Implement the function {\tt coordinate\_descent}. This is the algorithm whose single iteration looks like:\\
+
+\noindent
+{\bf For} $j$ {\bf in} $i_1, i_2, \ldots, i_d$ \\
+$\phantom{aaaa} x_j \gets x_j - \alpha [\nabla f(x)]_j$\\
+
+\noindent
+where $[\nabla f(x)]_j$ is the partial derivative $\partial f/\partial x_j$ evaluated at $x$.
+
+There are two version of coordinate descent: cyclic and random. In the cyclic version, the sequence of coordinates we change is deterministic. It is simply $i_1=1,
+i_2=2, i_3=3, \ldots$ (of course, remember that, in Python, the indices will start from $0$ not $1$).
+In the random version, the sequence $i_1, i_2, \ldots, i_d$ is a random draw from the coordinates $1$ through $d$ (let us say with replacement). You have to implement
+both versions. Note that the argument {\tt func\_grad\_1d} is a function that takes two arguments, $x$ (first) and $j$ (second), and gives you $[\nabla f(x)_j]$.
+
+Task 2.2 has 3 subtasks: 2.2.1, 2.2.2 and 2.2.3 (0.5, 0.5 and 1 point respectively).
+
+\subsection{Loss and loss gradient evaluators (4 points)}
+
+We will test the two optimization algorithms on functions that arise in maximum-likelihood estimation problems in regression/classification using linear models.
+In particular, we will consider (unconstrained) minimization of
+\begin{equation}\label{loss}
+f(\beta) = \frac{1}{n} \sum_{i=1}^n \ell(\beta^\top X_i, Y_i)
+\end{equation}
+where $X_i \in \reals^d, Y_i \in \reals$ and $\ell(t, y)$ is a non-negative loss functions such as the squared loss $(t-y)^2$ or the logistic loss
+$\log(1+\exp(-yt))$ (used in classification settings where $y \in \{-1,+1\}$). These two losses along with the gradients $\ell'(t,y)$ (w.r.t. the first argument $t$)
+are already defined in {\tt losses.py} for you. What you have to do is to define the 3 functions: {\tt loss\_calculator}, {\tt loss\_grad\_calculator},
+{\tt loss\_grad\_1d\_calculator} using the equation~\eqref{loss} above and the equations~\eqref{loss_grad} and~\eqref{loss_grad_1d} below respectively:
+\begin{equation}\label{loss_grad}
+\nabla f(\beta) = \frac{1}{n} \ell'(\beta^\top X_i, Y_i) X_i
+\end{equation}
+\begin{equation}\label{loss_grad_1d}
+[\nabla f(\beta)]_j = \frac{1}{n} \ell'(\beta^\top X_i, Y_i) X_{i,j}
+\end{equation}
+where $X_{i,j}$ is the $j$th feature/covariate of the $i$th example/input. Note that {\tt loss\_calculator} is actually already almost complete except that you will
+need to implement a helper function {\tt vector\_dot} that simply returns
+$u^\top v = \sum_{j=1}^d u_jv_j$ for two vectors $u$ and $v$ (represented as lists of floats).
+
+Task 2.3 has 4 subtasks: 2.3.1 through 2.3.4.
+
+\subsection{Testing the optimization routines on regression and logistic regression (2 points)}
+
+The {\tt main()} function first creates a regression data set with continuous responses $Y_i$ and then creates a binary classification data set with
+binary valued labels $Y_i \in \{-1,+1\}$. It runs gradient descent and coordinate descent on both data sets using certain fixed choices for initial
+points and step sizes (leave them as they are). Your task it to create appropriate functions that can be passed to gradient desct and coordinate
+descent so that the entire ${\tt main()}$ function executes properly.
+
+Task 2.4 has 2 subtasks: 2.4.1 and 2.4.2
+
+\subsection{Running the script and discussing the output (2 points)}
+
+After completing all tasks, run the script using:\\
+{\tt python assignment\_one\_optimization.py} \\
+(making sure that {\tt losses.py} is in the same directory) and answer the following questions.
+
+\begin{description}
+\item[Q. 2.1]
+Which optimization method took less time? Does your answer depend on whether you're talking about squared loss or logistic loss case?
+\item[Q. 2.2]
+Do the optimization methods return reasonable solutions? How does the returned solution compare to the true parameter vector?
+If we ran the optimization to more and more iterations, would you expect the returned solution to converge to the true parameter?
+\end{description}
 
 
-\section{Naive Bayes}
+\section{Nearest Neighbor Classification}
 
 \end{document}
