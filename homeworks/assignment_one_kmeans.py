@@ -191,4 +191,5 @@ def main():
         print '%3d %2d %2d' % (i, labels[i], cluster_ids[i])
 
 
-main()
+if '__name__' == '__main__':
+    main()
