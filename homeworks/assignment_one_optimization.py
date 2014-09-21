@@ -74,7 +74,7 @@ def coordinate_descent(func_grad_1d, init_point, step_size, num_iters,
         # TASK 2.2.3
         # update each of the chosen coordinates
         for j in coordinates:
-            curr_iter[j] = []
+            curr_iter[j] = curr_iter[j] - 0
 
     return curr_iter
 
