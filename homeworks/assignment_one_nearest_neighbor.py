@@ -14,11 +14,18 @@ def get_fold_indices(n, num_folds, fold_id):
     fold_id: the id of the fold we are creating
 
     Let fold_size = integer part of n/num_folds.
-    If fold_id is i (0 <= i < num_folds) we return these indices:
+    If fold_id is i (0 <= i < num_folds-1) we return these indices:
 
     [0, 1, ..., i*fold_size-1] + [(i+1)*fold_size, ..., n-1]
 
-    as the training indices. The complement (relative to range(n))
+    as the training indices. If fold_id is num_folds-1 (last fold)
+    we return these indices are training indices:
+
+    [0, 1, ..., (num_folds-1)*fold_size-1]
+
+    as the training indices.
+
+    In all cases, the complement (relative to range(n))
     of the training indices gives the testing indices.
     """
 
@@ -34,7 +41,8 @@ def get_fold_indices(n, num_folds, fold_id):
 
     # last fold_id has to be treated slightly differently:
     # when n is not a multiple of num_folds, the training
-    # indices set for the last fold will be a bit larger
+    # indices set for the last fold will be a bit smaller
+    # (and hence the test indices set will be a bit larger)
     if fold_id == num_folds-1:
         # TASK x.y
         # set train_indices correctly
