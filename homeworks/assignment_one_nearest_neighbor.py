@@ -44,16 +44,16 @@ def get_fold_indices(n, num_folds, fold_id):
     # indices set for the last fold will be a bit smaller
     # (and hence the test indices set will be a bit larger)
     if fold_id == num_folds-1:
-        # TASK x.y
+        # TASK 3.1.1
         # set train_indices correctly
         train_indices = range(0, 0)
     else:
-        # TASK x.y
+        # TASK 3.1.2
         # set train_indices correctly
         # by concatenating two ranges
         train_indices = range(0, 0) + range(0, 0)
 
-    # TASK x.y
+    # TASK 3.1.3
     # set test_indices to those indices in range(n)
     # that are not in train_indices
     test_indices = []
@@ -120,7 +120,7 @@ def classification_error(classifier, data, labels):
     # classified correctly
     error_indicators = [classifier(data[i]) != labels[i] for i in range(n)]
 
-    # TASK x.y
+    # TASK 3.3
     # use the list of booleans above to calculate total number of errors
     total_error = 0
 
