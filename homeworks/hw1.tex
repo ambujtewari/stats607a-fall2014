@@ -147,10 +147,10 @@ $\log(1+\exp(-yt))$ (used in classification settings where $y \in \{-1,+1\}$). T
 are already defined in {\tt losses.py} for you. What you have to do is to define the 3 functions: {\tt loss\_calculator}, {\tt loss\_grad\_calculator},
 {\tt loss\_grad\_1d\_calculator} using the equation~\eqref{loss} above and the equations~\eqref{loss_grad} and~\eqref{loss_grad_1d} below respectively:
 \begin{equation}\label{loss_grad}
-\nabla f(\beta) = \frac{1}{n} \ell'(\beta^\top X_i, Y_i) X_i
+\nabla f(\beta) = \frac{1}{n} \sum_{i=1}^n \ell'(\beta^\top X_i, Y_i) X_i
 \end{equation}
 \begin{equation}\label{loss_grad_1d}
-[\nabla f(\beta)]_j = \frac{1}{n} \ell'(\beta^\top X_i, Y_i) X_{i,j}
+[\nabla f(\beta)]_j = \frac{1}{n} \sum_{i=1}^n \ell'(\beta^\top X_i, Y_i) X_{i,j}
 \end{equation}
 where $X_{i,j}$ is the $j$th feature/covariate of the $i$th example/input. Note that {\tt loss\_calculator} is actually already almost complete except that you will
 need to implement a helper function {\tt vector\_dot} that simply returns
