@@ -6,3 +6,7 @@ seeds_dataset.txt
 This is a UCI dataset obtained from:
 http://archive.ics.uci.edu/ml/machine-learning-databases/00236/seeds_dataset.txt
  
+seeds_dataset_shuffled.txt
+==========================
+This is the same as seeds_dataset except that the data has been randomly shuffled
+so that the examples in the same class are no longer contiguous.
