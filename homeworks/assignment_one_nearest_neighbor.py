@@ -24,7 +24,8 @@ def get_fold_indices(n, num_folds, fold_id):
 
     # check whether fold_id is in the right range
     if fold_id < 0 or fold_id >= num_folds:
-        msg = 'Fold id %d illegal for supplied number of folds (which is %d)' % (fold, V)
+        msg = 'Fold id %d illegal for supplied number of folds (which is %d)' \
+            % (fold, V)
         raise Exception(msg)
 
     # n and num_folds are ints so this
@@ -33,7 +34,7 @@ def get_fold_indices(n, num_folds, fold_id):
 
     # last fold_id has to be treated slightly differently:
     # when n is not a multiple of num_folds, the training
-    # indices set for the last fold will be a bit larger 
+    # indices set for the last fold will be a bit larger
     if fold_id == num_folds-1:
         # TASK x.y
         # set train_indices correctly
@@ -175,7 +176,8 @@ def main():
             # and evaluate the classifier's error
             test_data = []
             test_label = []
-            fold_error = classification_error(classifier, test_data, test_label)
+            fold_error = classification_error(classifier,
+                                              test_data, test_label)
 
             total_error += fold_error
 
