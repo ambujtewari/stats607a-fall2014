@@ -1,4 +1,8 @@
 # Assignment 1, Part 3: Nearest Neighbor Classification
+#
+# Version 0.1
+# Thanks to the following students for reporting bugs:
+# Gregory Hunt, Weijie Ding
 
 import math
 import random
@@ -32,7 +36,7 @@ def get_fold_indices(n, num_folds, fold_id):
     # check whether fold_id is in the right range
     if fold_id < 0 or fold_id >= num_folds:
         msg = 'Fold id %d illegal for supplied number of folds (which is %d)' \
-            % (fold, V)
+            % (fold_id, num_folds)
         raise Exception(msg)
 
     # n and num_folds are ints so this
@@ -98,7 +102,7 @@ def nn_classifier(point, train_data, train_labels, k, K):
 
     # find the labels that have maximum frequency
     max_freq = max(freq)
-    max_freq_labels = [x for x in range(k) if freq[x] == max_freq]
+    max_freq_labels = [x for x in range(K) if freq[x] == max_freq]
 
     # if there are several labels with max frequency,
     # return one of them at random
