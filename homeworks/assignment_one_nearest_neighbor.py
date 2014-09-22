@@ -83,11 +83,11 @@ def nn_classifier(point, train_data, train_labels, k, K):
     # put distances, taining examples and training labels together
     all_three = zip(distances, train_data, train_labels)
 
-    # TASK x.y
+    # TASK 3.2.1
     # sort the triples by distances
     all_three_sorted = []
 
-    # TASK x.y
+    # TASK 3.2.2
     # after sorting extract the labels from the first k
     # triples
     nearest_k_labels = []
@@ -95,7 +95,7 @@ def nn_classifier(point, train_data, train_labels, k, K):
     # initialize label frequencies to 0's
     freq = [0]*K
 
-    # TASK x.y
+    # TASK 3.2.3
     # compute labels frequencies in nearest_k_labels
     for label in range(K):
         freq[label] = len([])
@@ -176,14 +176,14 @@ def main():
             fold_train_indices, fold_test_indices = \
                 get_fold_indices(n, num_folds, fold_id)
 
-            # TASK x.y
+            # TASK 3.4.1
             # get the training data and labels
             # and create a k-NN classifier
             train_data = []
             train_labels = []
             classifier = lambda point: 0
 
-            # TASK x.y
+            # TASK 3.4.2
             # get the test data and labels
             # and evaluate the classifier's error
             test_data = []
