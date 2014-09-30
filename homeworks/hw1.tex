@@ -4,10 +4,16 @@
 
 \begin{document}
 
+
+\author{Ambuj Tewari}
+\title{STATS 607A (Fall '14): Assignment 1\\
+Due: Sep 30, 2014 23:59:59}
+\date{Sep 15, 2014}
+
 \maketitle
 
 \begin{center}
-This version: 3.1 (corrected name of submission file)
+This version: 4.0 (corrected submission procedure and permission settings)
 \end{center}
 
 \subsection*{Ways to earn extra credit}
@@ -22,17 +28,27 @@ This version: 3.1 (corrected name of submission file)
 
 \subsection*{How to turn in?}
 
-Create a folder called {\tt stats607-fall2014} (case-sensitive) in your home directory on any of the Bayes machines. Make it publicly readable by typing:\\
-{\tt chmod a+rx stats607-fall2014} \\
-in your home directory. Then create a sub-directory called {\tt assignment\_one} within the 607 directory. Make that publicly readable too. We will try to find the
+Create a directory called {\tt stats607-fall2014} (case-sensitive) in the {\tt Public} directory already present in your home directory on any of the Bayes machines.
+Make it readable for the instructor and GSI by typing:\\
+\verb#fs sa ~/Public/stats607-fall2014/ -acl tewaria read kamwong read# \\
+on the Bayes command prompt. Then create a sub-directory called {\tt assignment\_one} within the 607 directory. Make that readable too for us by typing:\\
+\verb#fs sa ~/Public/stats607-fall2014/assignment_one/ -acl tewaria read kamwong read# \\
+We will try to find the
 following 4 files in your home directory after the submission deadline:\\
 {\tt assignment\_one\_kmeans.py} \\
 {\tt assignment\_one\_optimization.py} \\
 {\tt assignment\_one\_nearest\_neighbor.py} \\
 {\tt assignment\_one\_answers.pdf} \\
 
-The first 3 files should be python script that run without any error message. The last file should be a PDF file with answers to all questions below. Make sure the 4 files
-themselves are readable. You can check the permission of any of these 4 files by typing {\tt ls -l <filename>} and you should see {\tt -rw-r--r--} in the first field of the output.
+The first 3 files should be python scripts that run without any error message. The last file should be a PDF file with answers to all questions below. Make sure the 4 files
+themselves readable to us. You can check whether permissions are ok by typing:
+\begin{verbatim}
+fs listacl ~/Public/stats607-fall2014
+fs listacl ~/Public/stats607-fall2014/assignment_one
+\end{verbatim}
+You should see 2 lines in the output (in each case) that say: (under ``Normal rights:")\\
+{\tt tewaria rl}\\
+{\tt kamwong rl}
 
 \section{K-means (10 points)}
 
