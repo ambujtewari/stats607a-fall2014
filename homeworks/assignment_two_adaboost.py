@@ -1,1 +1,1 @@
-# Assignment 1, Part 3: Adaboost
+# Assignment 2, Part 3: Adaboost
