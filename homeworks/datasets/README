@@ -10,3 +10,9 @@ seeds_dataset_shuffled.txt
 ==========================
 This is the same as seeds_dataset except that the data has been randomly shuffled
 so that the examples in the same class are no longer contiguous.
+
+example_index and example_arcs
+==============================
+This is a small webgraph obtained from:
+http://webdatacommons.org/hyperlinkgraph/
+There are 106 vertices and 141 directed edges
