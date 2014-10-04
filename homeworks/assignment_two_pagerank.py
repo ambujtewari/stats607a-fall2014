@@ -1,6 +1,11 @@
 # Assignment 2, Part 1: Pagerank
+# 
+# Thanks to the following students for reporting bugs:
+#
+# Timothy Necamp
 #
 # Version 0.1 (added txt extension to files)
+# Version 0.2 (changed if stmt involving close_to_1)
 
 import numpy as np
 import numpy.linalg as LA
@@ -101,9 +106,10 @@ def main():
     # use np.isclose() function and and numpy.ndarray.nonzero()
     # methods to find those indices where the eigenvalue vector
     # w has entries (numerically) close to 1
+    # Make sure close_to_1 is a 1-d ndarray of indices
     close_to_1 = np.arange(n)
 
-    if close_to_1:
+    if close_to_1.size:
         ind_of_1 = close_to_1[0]
     else:
         raise Exception('Expected at least 1 eigenvalue to be 1, none found')
