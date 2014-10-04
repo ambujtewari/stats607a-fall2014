@@ -1,4 +1,6 @@
 # Assignment 2, Part 1: Pagerank
+#
+# Version 0.1 (added txt extension to files)
 
 import numpy as np
 import numpy.linalg as LA
@@ -37,8 +39,8 @@ def compute_pageranks(google_mat, tol=1e-8):
 
 def main():
 
-    indices_file = 'example_index'
-    edges_file = 'example_arcs'
+    indices_file = 'example_index.txt'
+    edges_file = 'example_arcs.txt'
 
     # random surfing probability is 1-alpha
     alpha = 0.85
