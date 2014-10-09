@@ -42,7 +42,7 @@ def svm_train(instances, labels, kernel_func, C=1.0):
 
     # call the L-BFGS-B method
     alpha, f, d = fmin_l_bfgs_b(func, alpha0, fprime=func_deriv,
-                        bounds=box_constraints)
+                                bounds=box_constraints)
 
     err_code = d['warnflag']
     if err_code == 0:
@@ -61,7 +61,7 @@ def svm_train(instances, labels, kernel_func, C=1.0):
 
     # TASK 2.6
     # retain those instances with non-zero alpha_y entries
-    # these are the "support vectors" 
+    # these are the "support vectors"
     support_vectors = instances[alpha.nonzero()]
 
     num_sv = alpha_y_nz.size  # no. of support vectors
