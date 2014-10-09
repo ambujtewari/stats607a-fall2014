@@ -12,28 +12,28 @@ def svm_train(instances, labels, kernel_func, C=1.0):
 
     pm_labels = 2*labels-1  # plus-minus one instead of zero-one
 
-    # TASK
+    # TASK 2.1
     # create an n x n kernel matrix
     kernel_mat = np.empty((n, n))
     for i in range(n):
         for j in range(n):
             kernel_mat[i, j] = 0.0
 
-    # TASK
+    # TASK 2.2
     # define the dual objective function
     def func(alpha):
         """ The SVM dual objective. """
 
         pass
 
-    # TASK
+    # TASK 2.3
     # define the gradient of the dual objective function
     def func_deriv(alpha):
         """ Gradient of the SVM dual objective. """
 
         pass
 
-    # TASK
+    # TASK 2.4
     # this should be a list containing n pairs (0.0, C)
     box_constraints = []
 
@@ -55,18 +55,18 @@ def svm_train(instances, labels, kernel_func, C=1.0):
 
     alpha_y = alpha * pm_labels
 
-    # TASK
+    # TASK 2.5
     # retain only non-zero alpha_y entries
     alpha_y_nz = alpha_y
 
-    # TASK
+    # TASK 2.6
     # retain those instances with non-zero alpha_y entries
     # these are the "support vectors" 
     support_vectors = instances[alpha.nonzero()]
 
     num_sv = alpha_y_nz.size  # no. of support vectors
 
-    # TASK
+    # TASK 2.7
     # define the svm classifier using kernel_func, support_vectors, and
     # alpha_y_nz
     def classifier(point):
@@ -80,23 +80,23 @@ def svm_train(instances, labels, kernel_func, C=1.0):
 def evaluate_classifier(classifier, instances, labels):
     """ Return a confusion matrix using the given classifier and data set."""
 
-    # TASK
+    # TASK 2.8.1
     # extract positive instances, their labels
     positives = positives
     pos_labels = pos_labels
 
-    # TASK
+    # TASK 2.8.2
     # find the predictions of classifier on positives
     # and count the no. of correct predictions therein
     pos_predictions = pos_predictions
     pos_correct = pos_correct
 
-    # TASK
+    # TASK 2.8.3
     # extract negative instances, their labels
     negatives = negatives
     neg_labels = neg_labels
 
-    # TASK
+    # TASK 2.8.4
     # find the predictions of classifier on negatives
     # and count the no. of correct predictions therein
     neg_predictions = neg_predictions
@@ -144,6 +144,7 @@ def main():
     test_data = instances[200:]  # example 201 onwards
     test_labels = labels[200:]  # label 201 onwards
 
+    # parameters for the kernels we'll use
     gamma = 1.0/d
     intercept = 0
 
