@@ -2,7 +2,7 @@
 
 import math
 import numpy as np
-from assignment_two_svm_sol \
+from assignment_two_svm \
     import evaluate_classifier, print_evaluation_summary
 
 
