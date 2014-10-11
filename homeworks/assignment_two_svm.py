@@ -62,7 +62,7 @@ def svm_train(instances, labels, kernel_func, C=1.0):
     # TASK 2.6
     # retain those instances with non-zero alpha_y entries
     # these are the "support vectors"
-    support_vectors = instances[alpha.nonzero()]
+    support_vectors = instances
 
     num_sv = alpha_y_nz.size  # no. of support vectors
 
