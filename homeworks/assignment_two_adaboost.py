@@ -6,7 +6,10 @@ from assignment_two_svm \
     import evaluate_classifier, print_evaluation_summary
 
 
-# TASK
+# TASK 3.1
+# Complete the function definition below
+# Remember to return a function, not the
+# sign, feature, threshold triple
 def weak_learner(instances, labels, dist):
 
     """ Returns the best 1-d threshold classifier.
@@ -27,7 +30,8 @@ def weak_learner(instances, labels, dist):
     pass
 
 
-# TASK
+# TASK 3.2
+# Complete the function definition below
 def compute_error(h, instances, labels, dist):
 
     """ Returns the weighted misclassification error of h.
@@ -38,7 +42,9 @@ def compute_error(h, instances, labels, dist):
     pass
 
 
-# TASK
+# TASK 3.3
+# Implement the Adaboost distribution update
+# Make sure this function returns a probability distribution
 def update_dist(h, instances, labels, dist, alpha):
 
     """ Implements the Adaboost distribution update. """
@@ -75,7 +81,10 @@ def run_adaboost(instances, labels, weak_learner, num_iters=20):
 
         alpha_h.append((alpha, h))
 
-    # TASK
+    # TASK 3.4
+    # return a classifier whose output
+    # is an alpha weighted linear combination of the weak
+    # classifiers in the list alpha_h
     def classifier(point):
         """ Classifies point according to a classifier combination.
 
