@@ -20,7 +20,7 @@ def weak_learner(instances, labels, dist):
 
     where s is +1/-1,
           j is a dimension
-      and threshold is real number in [0, 1].
+      and threshold is real number in [-1, 1].
 
     The best classifier is chosen to minimize the weighted misclassification
     error using weights from the distribution dist.
