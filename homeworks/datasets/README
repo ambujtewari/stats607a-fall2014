@@ -28,5 +28,5 @@ This isn't really a dataset. Since there's no built-in function in
 Python/numpy/scipy that can evaluate the Tracy-Widom distribution's density, I
 dumped the numerical values of the density function in this csv file. The
 arguments are given in decreasing order and range from 5 through -8 in steps of
-0.005. The numerical values were calculated in MATLAB using the Algorithm 2 in:
+0.005. The numerical values were calculated in MATLAB using Algorithm 2 in:
 http://www-math.mit.edu/~edelman/publications/random_matrix.pdf
