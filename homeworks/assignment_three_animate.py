@@ -50,7 +50,7 @@ def generate_nonseparable_data(n):
 
 # TASK 2.2
 # implement this function
-def online_lr_update(w, x, y, stepsize=1.0):
+def online_lr_update(w, x, y, stepsize=0.01):
     """ The online logistic regression update rule. """
 
     pass
