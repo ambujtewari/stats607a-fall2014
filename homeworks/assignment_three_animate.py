@@ -1,4 +1,8 @@
 # Assignment 3, Part 2: Animate online algorithms
+#
+# Version 0.1
+# Thanks to the following students for reporting bugs:
+# Weijei Ding
 
 import numpy as np
 import numpy.linalg as LA
@@ -50,7 +54,7 @@ def generate_nonseparable_data(n):
 
 # TASK 2.2
 # implement this function
-def online_lr_update(w, x, y, stepsize=0.01):
+def online_lr_update(w, x, y, stepsize=0.1):
     """ The online logistic regression update rule. """
 
     pass
