@@ -2,7 +2,7 @@
 #
 # Version 0.1
 # Thanks to the following students for reporting bugs:
-# Weijei Ding
+# Weijie Ding
 
 import numpy as np
 import numpy.linalg as LA
