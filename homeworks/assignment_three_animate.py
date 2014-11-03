@@ -25,6 +25,7 @@ def generate_separable_data(n):
 
     return X, Y
 
+
 # TASK 2.1
 # implement this function
 def perceptron_update(w, x, y):
