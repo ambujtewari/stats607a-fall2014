@@ -1,8 +1,8 @@
 # Assignment 3, Part 2: Animate online algorithms
 #
-# Version 0.1
+# Version 0.2
 # Thanks to the following students for reporting bugs:
-# Weijie Ding
+# Weijie Ding, Wenyi Wu
 
 import numpy as np
 import numpy.linalg as LA
