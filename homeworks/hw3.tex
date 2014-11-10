@@ -1,0 +1,299 @@
+\documentclass{article}
+
+\input{stats607-header}
+
+\usepackage{graphicx}
+
+\begin{document}
+
+
+\author{Ambuj Tewari}
+\title{STATS 607A (Fall '14): Assignment 3\\
+Due: Nov 10, 2014 23:59:59}
+\date{Oct 26, 2014}
+
+\maketitle
+
+\begin{center}
+This version: 2.0 (Problem 2 added)
+\end{center}
+
+\subsection*{Ways to earn extra credit}
+
+\begin{itemize}
+\item +1 for all real bugs in the already supplied code that you find and report to the instructor.
+\item +1 for each problem where your code is in the top 10 percentile (top 5 students) in terms of running time.
+\item +1 for each python script where Python style guide checker {\tt pep8} doesn't report any issues. You can test for any style guide issues yourself by typing
+{\tt pep8 <python-script>} on the shell prompt.
+
+\end{itemize}
+
+\subsection*{How to turn in?}
+
+Make sure a directory called {\tt stats607-fall2014} (case-sensitive) exists in the {\tt Public} directory already present in your home directory on any of the Bayes machines.
+If it is not so already, please make it readable for the instructor and GSI by typing:\\
+\verb#fs sa ~/Public/stats607-fall2014/ -acl tewaria read kamwong read# \\
+on the Bayes command prompt. Then create a sub-directory called {\tt
+assignment\_three} within the 607 directory. Make that readable too for us by typing:\\
+\verb#fs sa ~/Public/stats607-fall2014/assignment_three/ -acl tewaria read kamwong read# \\
+We will try to find the
+following files in your home directory after the submission deadline:\\
+{\tt assignment\_three\_rmt.py} \\
+{\tt assignment\_three\_animate.py} \\
+$\ll$ 1 more filename to be added in a later version of this document $\gg$\\
+{\tt assignment\_three\_answers.pdf} \\
+
+
+The {\tt .py} files should be python scripts that run without any error message. The last file should be a PDF file with answers to all questions below. Make sure the directories
+containing the files above are all readable to us. You can check whether permissions are ok by typing:
+\begin{verbatim}
+fs listacl ~/Public/stats607-fall2014
+fs listacl ~/Public/stats607-fall2014/assignment_three
+\end{verbatim}
+You should see 2 lines in the output (in each case) that say: (under ``Normal rights:")\\
+{\tt tewaria rl}\\
+{\tt kamwong rl}
+
+\section{Verifying the Semicircle and Tracy-Widom Laws from Random Matrix
+Theory [RMT] (10 points)}
+
+In this problem, we will numerically verify two important RMT laws following
+the algorithmic recipes mentioned in Section 1 of the following article: \\
+\url{http://www-math.mit.edu/~edelman/publications/random_matrix.pdf}\\
+We will basically write the equivalent Python code for Algorithm 1 in the article linked to above.
+
+The only difference is that we will NOT implement Algorithm 2 that computes the
+Tracy-Widom distribution. Instead, we will simply read a table containing
+pre-computed numerical values from the file:
+\href{https://github.com/ambujtewari/stats607a-fall2014/blob/master/homeworks/datasets/tracy-widom.csv}{\tt
+tracy-widom.csv} \\
+We will award +5 extra credits to anyone who figures out a way to compute the Tracy-Widom distribution in Python/numpy/scipy.
+It shouldn't be too difficult given the functions in {\tt scipy.special} (for the Airy function) and {\tt scipy.integrate} (for ODE
+solvers).
+
+Download an (incomplete!) python script by following the following
+link:\\
+\href{https://github.com/ambujtewari/stats607a-fall2014/blob/master/homeworks/assignment_three_rmt.py}{\tt
+assignment\_three\_rmt.py} \\
+Click on the ``Raw" button on the top right and save the file as {\tt
+assignment\_three\_rmt.py}.
+
+Open the python script in your favorite text editor. You will see a bunch of places where a comment says {\tt TASK x.y(.z)}. These are the places where you have to supply your
+own code.\\
+{\bf Important:} Please only change/add code where the tasks require you to do so (sometimes you'll have to replace a {\tt pass} statement with real code, sometimes you'll be changing existing statements). Please {\em don't} modify the existing code and comments anywhere else! We might use automated scripts to grade your code and not following this suggestion will break those scripts.
+
+We will now briefly describe your tasks. If something is unclear, please don't hesitate to email the instructor and/or GSI.
+
+\subsection{Sampling from GOE and computing eigenvalues (2 points)}
+
+Create a 2D $n \times n$ ndarray $A$ (\verb#a# in the code) whose entries are iid standard normal. Then set $S = (A+A^\top)/2$ (\verb#s# in the code). The random matrix $S$ is said to be drawn from the GOE (Gaussian Orthogonal
+Ensemble). GOE, GUE (the one we'll see in the next TASK) and GSE (Gaussian Symplectic Ensemble) are three classical random matrix ensembles. See, for example, \\
+\url{http://en.wikipedia.org/wiki/Random_matrix#Gaussian_ensembles}\\
+Once the symmetric matrix $S$ has been generated, store its $n$ real eigenvalues in a row of the 2D ndarray \verb#v#.
+
+TASK 1.1 has 2 subtasks: 1.1.1 and 1.1.2
+
+\subsection{Sampling from GUE and computing maximum eigenvalue (2 points)}
+
+Create a complex valued 2D $n \times n$ ndarray $A$ (\verb#a# in the code) whose entries are iid complex random variables $X+ \iota Y$ where $X, Y$ are independent standard normals and $\iota$ is the imaginary unit. Then set $S = (A+A^\star)/2$ (\verb#s# in the code). Note that $A^\star$ denotes the Hermitian (or conjugate) transpose of the matrix $A$. The random matrix $S$ is said to be drawn from the GUE (Gaussian Unitary
+Ensemble).
+Once the Hermitian matrix $S$ has been generated, store its maximum (in value, not absolute value) among its $n$ eigenvalues in an entry of the 1D ndarray \verb#v1#.
+
+TASK 1.2 has 2 subtasks: 1.2.1 and 1.2.2.
+
+\subsection{Normalize GOE eigenvalues (1 point)}
+
+The eigenvalues will be on an $O(\sqrt{n})$ scale. Divide \verb#v# by $\sqrt{n/2}$ to get rid of the $n$ dependence in the scale.
+
+\subsection{Plot the histogram of GOE eigenvalues against the theoretical
+prediction (1 point)}
+
+We will bin the eigenvalues in \verb#v# using the function \verb#numpy.histogram()#. We will use the following as bin boundaries:\\
+\verb#-2 -1.8 -1.6 ... 1.8 2# \\
+The call to compute the histogram will result in two variable \verb#hist# and \verb#bin_edges#. You will have \verb#len(bin_edges)#
+exactly 1 larger than \verb#len(hist)# since the bin counts in \verb#hist# are for eigenvalues that fell in the middle of two successive
+bin boundary values. Then plot the bin counts using \verb#matplotlib.pyplot.bar()#. The code for plotting the semicircle theoretical
+prediction and for saving the file to a pdf document is already supplied.
+
+TASK 1.4 has 2 subtasks: 1.4.1 and 1.4.2.
+
+\subsection{Normalize GUE max eigenvalues (1 point)}
+
+The largest eigenvalue will be distributed in a $O(n^{-1/6})$ sized band around its expected value of $O(\sqrt{n})$. So first subtract $2\sqrt{n}$ from
+\verb#v1# and then multiply each entry by $n^{1/6}$.
+
+\subsection{Plot the histogram of GUE max eigenvalues against the theoretical
+prediction (1 point)}
+
+This TASK is similar to TASK 1.4 except that we bin \verb#v1# instead of \verb#v# and our bin boundaries will be:\\
+\verb#-5 -4.8 -4.6 ... 1.8 2# \\
+You have to create the bar graph from numerical values in the (normalized) 1D array \verb#v1#. The code to read in the
+theoretical Tracy-Widom prediction from the file \verb#tracy-widom.csv# and to plot it has already been supplied.
+
+TASK 1.6 has 2 subtasks: 1.6.1 and 1.6.2.
+
+\subsection{Running the script and discussing the output (2 points)}
+
+Once you have supplied all missing pieces of the code, run the script using:\\
+{\tt python assignment\_three\_rmt.py}
+
+Two pdf files \verb#Semicircle.pdf# and \verb#Tracy-Widom.pdf# will be created by the above script. The figures in them should like the ones
+shown in Figure~\ref{rmt}.
+
+\begin{figure}
+\begin{minipage}{.4\textwidth}
+\includegraphics[width=\textwidth]{Semicircle.pdf}
+\end{minipage}
+\hspace{.1\textwidth}
+\begin{minipage}{.4\textwidth}
+\includegraphics[width=\textwidth]{Tracy-Widom.pdf}
+\end{minipage}
+\caption{Numerical results versus theoretical predictions made by the Semicircle law for eigenvalue distribution of GOE ensembles (left) and Tracy-Widom law for
+maximum eigenvalue distribution of GUE ensembles (right)}
+\label{rmt}
+\end{figure}
+
+Answer the following questions:
+\begin{description}
+\item[Q. 1.1]
+There are several eigenvalue related functions available in \verb#scipy.linalg# including {\tt eig, eigh, eigvals, eigvalsh}. How did you decide which one to choose?
+Did you look at speed? applicability to this problem? Anything else?
+\item[Q. 1.2]
+Do you still get the same plots as in Figure~\ref{rmt} if you replace all standard normals you used in the sampling stage with symmetric Bernoulli random variables (i.e.
+discrete random variables that are either $+1$ to $-1$ with equal probability).
+
+\end{description}
+
+\section{Creating animation videos for online learning algorithms (10 points)}
+
+In this problem, we will create short video animations for two online learning algorithms for
+binary classification: perceptron and online logistic regression.
+Both algorithms start with a weight vector $w \in \reals^d$ ($d$ will be equal to $2$ so that we can plot everything in 2D).
+They both process the data one example, label pairs at a time.
+
+Given an example $x \in \reals^d$ and a label $y \in \{\pm 1\}$,
+perceptron first tests whether $y w^\top x > 0$. If it is, then no update is made. If not, then it sets
+$w$ to $w + y x$.
+
+Given an example $x \in \reals^d$ and a label $y \in \{\pm 1\}$,
+online logistic regression performs the update
+$$
+w = w - \eta \ell'(w^\top x, y) x
+$$
+where $\ell'(t, y)$ is the derivative of $\ell(t,y) = \log(1+\exp(-yt))$ w.r.t. $t$. The step size parameter
+$\eta$ has been set to its default value of $0.1$ in our implementation. The python code for computing the derivative
+of the logistic loss is already provided in the file:\\
+\url{https://github.com/ambujtewari/stats607a-fall2014/blob/master/homeworks/losses.py}\\
+which has already been imported for you in the file for this problem.
+
+Download an (incomplete!) python script by following the following
+link:\\
+\href{https://github.com/ambujtewari/stats607a-fall2014/blob/master/homeworks/assignment_three_animate.py}{\tt
+assignment\_three\_animate.py} \\
+Click on the ``Raw" button on the top right and save the file as {\tt
+assignment\_three\_animate.py}.
+
+\subsection{Perceptron update (1 point)}
+
+Implement the function {\tt perceptron\_update}.
+
+\subsection{Online logistic regression update (1 point)}
+
+Implement the function {\tt online\_lr\_update}.
+
+\subsection{Create the basic plots (3 points)}
+
+Provide code to plot the positives as blue dots, negative as red dots, the separator line (whose equation is $w^\top x = 0$) as a black line.
+
+This TASK consists of 3 subtasks: 2.3.1 through 2.3.3
+
+\subsection{Fill in the frame update (3 points)}
+
+The animation basically works by repeated calling {\tt frame\_update} to change the plot (each time with a different argument).
+We have set up the animation so that {\tt frame\_update} will get called with argument drawn from the list {\tt range(2*n+1)}.
+We won't do anything on the $0$th call. On all subsequent calls, we will execute one update of whichever algorithm we're animating.
+The example picked at iteration {\tt i} will be {\tt (i-1) \% n} (along with the corresponding label). 
+Then we will update the separator (black) line and also the current point marked with a yellow star.
+
+This TASK consists of 3 subtasks: 2.4.1 through 2.4.3
+
+\subsection{Running the script and discussing the output (2 points)}
+
+Once you have supplied all missing pieces of the code, run the script using:\\
+{\tt python assignment\_three\_animate.py}
+
+This will create two {\tt mp4} files in the current directory:\\
+\verb#Online_logistic_regression_anim.mp4    Perceptron_anim.mp4#\\
+Open them in your favorite video player and
+answer the following questions:
+\begin{description}
+\item[Q. 1.1]
+Perceptron runs on data that is perfectly separable using a (not necessarily unique) linear separator. Does it find one such separator?
+If not, how many points does the final classifier misclassify? If we keep running the algorithm by cycling through the data, will it eventually classify everything correctly?
+\item[Q. 1.2]
+Online logistic regression runs on non linearly-separable data. How many points does the final classifier misclassify? 
+If we keep running the algorithm by cycling through the data, will it eventually classify everything correctly?  
+\end{description}
+
+\section{Fetching USA jobs data via the web API (10 points)}
+
+In this problem, we will fetch data from the USA Jobs API described at:\\
+\url{https://data.usajobs.gov/Rest} \\
+Familiarize yourself with how the API works by browsing the above website.
+
+We will store the jobs data for the state of Michigan in a Pandas frame and compute some very simple
+statistics about jobs from each agency that has jobs available.
+
+Download an (incomplete!) python script by following the following
+link:\\
+\href{https://github.com/ambujtewari/stats607a-fall2014/blob/master/homeworks/assignment_three_jobs.py}{\tt
+assignment\_three\_jobs.py} \\
+Click on the ``Raw" button on the top right and save the file as {\tt
+assignment\_three\_jobs.py}.
+
+\subsection{Implement the function to get data into a Python dict (3 points)}
+
+First get the response from the server using the provided URL. Then
+read the response to get raw JSON text. Convert JSON into a Python dict
+using the appropriate functions from the {\tt json} module.
+
+This TASK consists of 3 subtasks: 3.1.1 through 3.1.3
+
+\subsection{Extract job list and number of pages of output (2 points)}
+
+You will see that the Python dict obtained upon convert the JSON data
+into Python dict will have just a few keys. One of them has the actual job data
+stored as a list in its corresponding value. Another key has the number of "pages"
+of result (This API has this concept of "pages" probably to ensure that
+each single call to the web API doesn't take a lot of time). Note that the initial call simply returns the 1st page. There may be additional
+pages but they have to be fetched explicitly (that's the next task).
+
+This TASK consists of 2 subtasks: 3.2.1 and 3.2.2
+
+\subsection{Fetch pages of output and keep growing job list (2 points)}
+
+We'll run a loop to fetch all remaining pages. Each time we'll simply keep growing out list of jobs.
+
+This TASK consists of 2 subtasks: 3.3.1 and 3.3.2
+
+\subsection{Create DataFrame and extract unique agencies (2 points)}
+
+Convert the list of jobs to a Pandas DataFrame and find out how many unique agencies have their jobs advertised.
+
+This TASK consists of 2 subtasks: 3.4.1 and 3.4.2
+
+\subsection{Implement the function to convert salary from string to float (1 point)}
+
+The salary columns in your DataFrame with have salary stored as a strong, e.g., \verb#$60,000.00#. You'll have
+to write a function \verb#numeric_value()# that will get rid of the dollar sign and commas and return salary as a float.
+
+\subsection{Running the script and discussing the output (no points but make sure script runs)}
+
+Once you have supplied all missing pieces of the code, run the script using:\\
+{\tt python assignment\_three\_jobs.py}
+
+The script will produce some text output first about its progress and then about the jobs fetched.
+The job info is very basic: number of jobs per agency and the average value of the Minimum Salary
+for those jobs (there's also a Maximum Salary fields for each job but we're ignoring it).
+
+\end{document}
