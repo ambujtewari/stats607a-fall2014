@@ -1,4 +1,6 @@
 # Assignment 3, Part 3: Pull data about federal jobs
+#
+# Version 
 
 from urllib2 import urlopen, Request
 import json
@@ -51,7 +53,7 @@ num_pages = int(data['another key'])
 
 # only the first page is returned above, run a loop
 # to get other pages
-for page in range(2, num_pages):
+for page in range(2, num_pages+1):
 
     # TASK 3.3.1
     # change URL to request a specific page
