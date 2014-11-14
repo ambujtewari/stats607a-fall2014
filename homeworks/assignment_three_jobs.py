@@ -1,6 +1,8 @@
 # Assignment 3, Part 3: Pull data about federal jobs
 #
-# Version 
+# Version 0.1
+# Thanks to the following students for reporting bugs:
+# Timothy Necamp 
 
 from urllib2 import urlopen, Request
 import json
